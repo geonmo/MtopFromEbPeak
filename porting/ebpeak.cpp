@@ -106,7 +106,6 @@ void ana(){
         if ( (int)xsec != 1  )          evWgt  = xsec*ntuple->LepSelEffWeights[0]*ntuple->PUWeights[0];
         if (ntuple->nGenWeight>0)  evWgt *= ntuple->GenWeights[0];
 
-        cout<<"xsec : "<<xsec<<" lepSel : "<<ntuple->LepSelEffWeights[0]<<"  PUWeight : "<<ntuple->PUWeights[0]<<endl;
         //#ready to fill the histograms
         hist["nvtx"]->Fill(ntuple->nPV,evWgt);
         hist["nbtags"]->Fill(nBtags,evWgt);
@@ -160,7 +159,6 @@ int main( int argc, char* argv[ ]) {
   std::unordered_map<string, sampleInfo> sampleLists;
   auto datafiles = root.getMemberNames();
   for( string data : datafiles ) {
-    std::cout<<data<<std::endl;
     const Json::Value subdata = root[data];
     sampleLists[data] = sampleInfo( subdata ) ;
   }
@@ -186,9 +184,6 @@ int main( int argc, char* argv[ ]) {
         double xsec = sample.second.getXsec();
         string outFileURL = TString::Format("%s/%s.root",options["outDir"].c_str(),sample.first.c_str()).Data();
         //taskList.append( (inFileURL,outFileURL,xsec) )
-        cout<<inFileURL<<endl;
-        cout<<outFileURL<<endl; 
-        cout<<xsec<<endl;
         runBJetEnergyPeak ebpeak( inFileURL, outFileURL , xsec) ;
   } 
 
