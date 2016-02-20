@@ -175,6 +175,11 @@ int main( int argc, char* argv[ ]) {
         pool = Pool(opt.njobs)
         pool.map(runBJetEnergyPeakPacked,taskList)
     */
+
+    //prepare output
+    if ( options["outDir"] == "" ) options["outDir"] ="./";
+    else system( ("mkdir -p "+ options["outDir"]).c_str());
+
   for( auto sample : sampleLists ) {
         string inFileURL  = TString::Format("%s/%s.root",options["inDir"].c_str(),sample.first.c_str()).Data();  //# For NTU cluster,
         //#if not os.path.isfile(inFileURL): continue
