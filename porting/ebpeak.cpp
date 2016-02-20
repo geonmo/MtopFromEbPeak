@@ -106,6 +106,7 @@ void ana(){
         if ( (int)xsec != 1  )          evWgt  = xsec*ntuple->LepSelEffWeights[0]*ntuple->PUWeights[0];
         if (ntuple->nGenWeight>0)  evWgt *= ntuple->GenWeights[0];
 
+        cout<<"xsec : "<<xsec<<" lepSel : "<<ntuple->LepSelEffWeights[0]<<"  PUWeight : "<<ntuple->PUWeights[0]<<endl;
         //#ready to fill the histograms
         hist["nvtx"]->Fill(ntuple->nPV,evWgt);
         hist["nbtags"]->Fill(nBtags,evWgt);
@@ -139,7 +140,6 @@ int main( int argc, char* argv[ ]) {
   optparse::Values options = parser.parse_args(argc, argv);
   vector<string> args = parser.args();
 
-  runBJetEnergyPeak ebpeak( options["inDir"], options["outDir"] ) ;
 
   //read list of samples
   ifstream infile; 
@@ -189,6 +189,7 @@ int main( int argc, char* argv[ ]) {
         cout<<inFileURL<<endl;
         cout<<outFileURL<<endl; 
         cout<<xsec<<endl;
+        runBJetEnergyPeak ebpeak( inFileURL, outFileURL , xsec) ;
   } 
 
 	return 0;
